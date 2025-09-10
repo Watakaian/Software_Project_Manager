@@ -16,10 +16,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from accounts.views import redirect_dashboard
+
+# custom django admin - change names
+admin.site.site_header = "Internal Admin"   # Big header (top-left)
+admin.site.site_title = "Internal Admin"   # Browser tab title
+admin.site.index_title = "Restricted Area" # Text on the main admin page
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    # path('clients/', include("clients.urls")),
-    # path('payments/', include("payments.urls")),
-    # path('projects/', include("projects.urls")),
+    path("admin/", admin.site.urls),  # for superusers only
+    path("accounts/", include("accounts.urls")),
+    path("", redirect_dashboard, name="home"), #
+    path("dashboard/", include("dashboard.urls")), # logged in user
+    # path("projects/", include("projects.urls")),
+    # path("clients/", include("clients.urls")),
+    # path("payments/", include("payments.urls")),
 ]

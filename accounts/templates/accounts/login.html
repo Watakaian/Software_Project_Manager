@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" x-data="{ loading: false }">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.0/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.6/dist/htmx.min.js" integrity="sha384-Akqfrbj/HpNVo8k11SXBb6TlBWmXXlYQrCSqEWmyKJe+hDm3Z/B2WVG4smwBkRVm" crossorigin="anonymous"></script>
+</head>
+<body class="min-h-screen flex items-center justify-center bg-base-200">
+
+    <div class="card w-96 bg-base-100 shadow-xl">
+        <div class="card-body">
+            <h2 class="card-title justify-center">Login</h2>
+
+            {% if form.errors %}
+            <div class="alert alert-error">
+                Invalid username or password.
+            </div>
+            {% endif %}
+
+            <form method="post" 
+                  @submit="loading = true" 
+                  hx-boost="true" 
+                  hx-target="body">
+                {% csrf_token %}
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text">Username</span>
+                    </label>
+                    <input type="text" name="username" class="input input-bordered" required>
+                </div>
+
+                <div class="form-control mt-2">
+                    <label class="label">
+                        <span class="label-text">Password</span>
+                    </label>
+                    <input type="password" name="password" class="input input-bordered" required>
+                </div>
+
+                <div class="form-control mt-4">
+                    <button type="submit" class="btn btn-primary w-full" :disabled="loading">
+                        <span x-show="!loading">Login</span>
+                        <span x-show="loading" class="loading loading-spinner"></span>
+                    </button>
+                </div>
+            </form>
+
+            <div class="mt-4 text-center">
+                <a href="" class="link link-primary">Forgot password?</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
