@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Dashboard{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.0/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.6/dist/htmx.min.js" integrity="sha384-Akqfrbj/HpNVo8k11SXBb6TlBWmXXlYQrCSqEWmyKJe+hDm3Z/B2WVG4smwBkRVm" crossorigin="anonymous"></script>
+</head>
+<body class="bg-base-200" x-data="{ sidebarOpen: false }">
+
+    <div class="drawer lg:drawer-open">
+        <input id="dashboard-drawer" type="checkbox" class="drawer-toggle" x-model="sidebarOpen" />
+
+        <!-- Main Content -->
+        <div class="drawer-content flex flex-col">
+            
+            <!-- Topbar -->
+            <div class="navbar bg-base-100 shadow-md px-4">
+                <div class="flex-none lg:hidden">
+                    <label for="dashboard-drawer" class="btn btn-square btn-ghost">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </label>
+                </div>
+                <div class="flex-1">
+                    <a href="{% url 'dashboard:index' %}" class="text-xl font-bold">My Dashboard</a>
+                </div>
+                <div class="flex-none">
+                    <form method="post" action="{% url 'accounts:logout' %}">
+                        {% csrf_token %}
+                        <button class="btn btn-sm btn-outline">Logout</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Page Content -->
+            <main class="p-4">
+                {% block content %}
+                <!-- Page-specific content will go here -->
+                {% endblock %}
+            </main>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="drawer-side">
+            <label for="dashboard-drawer" class="drawer-overlay"></label>
+            <ul class="menu p-4 w-64 min-h-full bg-base-100 text-base-content">
+                <li class="menu-title">Navigation</li>
+                <li><a href="{% url 'dashboard:index' %}">🏠 Dashboard</a></li>
+                <li><a href="">📂 Projects</a></li>
+                <li><a href="">👥 Clients</a></li>
+                <li><a href="">💰 Payments</a></li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>
