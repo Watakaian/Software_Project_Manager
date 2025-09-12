@@ -3,6 +3,7 @@
 <html lang="en" x-data="{ loading: false }">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
@@ -11,7 +12,7 @@
 </head>
 <body class="min-h-screen flex items-center justify-center bg-base-200">
 
-    <div class="card w-96 bg-base-100 shadow-xl">
+    <div class="card w-96 bg-base-100 shadow-xl mx-10 md:mx-0">
         <div class="card-body">
             <h2 class="card-title justify-center">Login</h2>
 
@@ -43,7 +44,7 @@
                 <div class="form-control mt-4">
                     <button type="submit" class="btn btn-primary w-full" :disabled="loading">
                         <span x-show="!loading">Login</span>
-                        <span x-show="loading" class="loading loading-spinner"></span>
+                        <span x-show="loading" class="loading loading-spinner cursor-progress"></span>
                     </button>
                 </div>
             </form>

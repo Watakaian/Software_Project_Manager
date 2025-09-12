@@ -1,64 +1,62 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}Dashboard{% endblock %}</title>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.0/dist/cdn.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.6/dist/htmx.min.js" integrity="sha384-Akqfrbj/HpNVo8k11SXBb6TlBWmXXlYQrCSqEWmyKJe+hDm3Z/B2WVG4smwBkRVm" crossorigin="anonymous"></script>
-</head>
-<body class="bg-base-200" x-data="{ sidebarOpen: false }">
+{% extends "dashboard/base.html" %}
 
-    <div class="drawer lg:drawer-open">
-        <input id="dashboard-drawer" type="checkbox" class="drawer-toggle" x-model="sidebarOpen" />
-
-        <!-- Main Content -->
-        <div class="drawer-content flex flex-col">
-            
-            <!-- Topbar -->
-            <div class="navbar bg-base-100 shadow-md px-4">
-                <div class="flex-none lg:hidden">
-                    <label for="dashboard-drawer" class="btn btn-square btn-ghost">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                             viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M4 6h16M4 12h16M4 18h16"/>
-                        </svg>
-                    </label>
-                </div>
-                <div class="flex-1">
-                    <a href="{% url 'dashboard:index' %}" class="text-xl font-bold">My Dashboard</a>
-                </div>
-                <div class="flex-none">
-                    <form method="post" action="{% url 'accounts:logout' %}">
-                        {% csrf_token %}
-                        <button class="btn btn-sm btn-outline">Logout</button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Page Content -->
-            <main class="p-4">
-                {% block content %}
-                <!-- Page-specific content will go here -->
-                {% endblock %}
-            </main>
+{% block content %}
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">    
+    
+    <div class="card bg-base-100 shadow-md p-4">
+        <h3 class="text-lg font-semibold">Pending Projects</h3>
+        {% for project in projects %}
+            <p class="">{{ project.title }}</p>
+        {% empty%}
+            <p>No projects Found</p>
+        {% endfor %}
+        <div class="grid grid-cols-2 gap-1 md:gap-3">    
+            <a href="" class="btn btn-sm btn-primary mt-2">Add Project</a>
+            <a href="" class="btn btn-sm btn-primary mt-2">View All Projects</a>
         </div>
+    </div>        
+    
+    <div class="card bg-base-100 shadow-md p-4">
+        <h3 class="text-lg font-semibold">Recent Clients</h3>
+        {% for client in clients %}
+        <p class="">{{ client.name }}</p>
+        {% empty %}
+            <p>No Clients Found</p>
+        {% endfor %}
+        <div class="grid grid-cols-2 gap-1 md:gap-3">    
+            <a href="" class="btn btn-sm btn-primary mt-2">Add Client</a>
+            <a href="" class="btn btn-sm btn-primary mt-2">View All Clients</a>
+        </div>
+    </div>
+        
+    <div class="card bg-base-100 shadow-md p-4">
+        <h3 class="text-lg font-semibold">Pending Payments</h3>
 
-        <!-- Sidebar -->
-        <div class="drawer-side">
-            <label for="dashboard-drawer" class="drawer-overlay"></label>
-            <ul class="menu p-4 w-64 min-h-full bg-base-100 text-base-content">
-                <li class="menu-title">Navigation</li>
-                <li><a href="{% url 'dashboard:index' %}">🏠 Dashboard</a></li>
-                <li><a href="">📂 Projects</a></li>
-                <li><a href="">👥 Clients</a></li>
-                <li><a href="">💰 Payments</a></li>
-            </ul>
+        {% for unpaid_invoice in unpaid_invoices %}
+            <p class="">{{ unpaid_invoice }}</p>
+        {% empty %}
+            <p>No Pending Payments Found.</p>
+        {% endfor %}
+
+        <div class="grid grid-cols-2 gap-1 md:gap-3 card-actions">    
+            <a href="" class="btn btn-sm btn-primary mt-2">Add Payment</a>
+            <a href="" class="btn btn-sm btn-primary mt-2">View All Payments</a>
+        </div>
+    </div>
+        
+
+    <div class="card bg-base-100 shadow-md p-4">
+        <h3 class="text-lg font-semibold">Pending Requirements</h3>
+        {% for pending_requirement in pending_requirements %}
+            <p class="">{{ pending_requirement }}</p>
+        {% empty %}
+            <p>No Pending Requirements Found.</p>
+        {% endfor %}
+        <div class="grid grid-cols-2 gap-1 md:gap-3 card-actions">    
+            <a href="" class="btn btn-sm btn-primary mt-2">Add Requirement</a>
+            <a href="" class="btn btn-sm btn-primary mt-2">View All Requirements</a>
         </div>
     </div>
 
-</body>
-</html>
+</div>
+{% endblock %}

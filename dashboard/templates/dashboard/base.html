@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}DevTrack - Dashboard{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.0/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.6/dist/htmx.min.js" integrity="sha384-Akqfrbj/HpNVo8k11SXBb6TlBWmXXlYQrCSqEWmyKJe+hDm3Z/B2WVG4smwBkRVm" crossorigin="anonymous"></script>
+</head>
+<body class="bg-base-200 min-h-screen" x-data="{ sidebarOpen: false }">
+
+    <div class="drawer lg:drawer-open">
+        <input id="dashboard-drawer" type="checkbox" class="drawer-toggle" x-model="sidebarOpen" />
+
+        <!-- Main Content -->
+        <div class="drawer-content flex flex-col">
+            
+            <!-- Topbar -->
+            <div class="navbar bg-base-100 shadow-sm">
+                <!-- Hamburger Button - Calls drawer-->
+                <div class="flex-none lg:hidden">
+                    <label for="dashboard-drawer" class="btn btn-square btn-ghost">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </label>
+                </div>
+
+                <div class="flex-1">
+                    <a class="btn btn-ghost rounded-full text-xl" href="{% url 'dashboard:index' %}">Dashboard</a>
+                </div>
+                <div class="flex gap-2">
+                    <input type="text" placeholder="Search" class="input input-bordered rounded-full w-24 md:w-auto" />
+
+                    <!-- alert button -->
+                    <button class="btn btn-ghost btn-circle">
+                        <div class="indicator">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /> </svg>
+                            <span class="badge badge-xs badge-primary indicator-item">3</span>
+                        </div>
+                    </button>
+
+                    <!--Profile Section-->
+                    <div class="dropdown dropdown-end">
+                    <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+                        <div class="w-10 rounded-full">
+                        <img
+                            alt="Tailwind CSS Navbar component"
+                            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                        </div>
+                    </div>
+                    <ul
+                        tabindex="0"
+                        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2">
+                        <li>
+                        <a class="justify-between">
+                            Profile
+                        </a>
+                        </li>
+                        <li><a>Settings</a></li>
+                        <li>
+                            <form method="post" action="{% url 'accounts:logout' %}">
+                                {% csrf_token %}
+                                <button class="btn btn-sm btn-outline">Logout</button>
+                            </form>
+                        </li>
+                    </ul>
+                    </div>
+                </div>
+                </div>
+
+            <!-- Page Content -->
+            <main class="p-4">
+                {% block content %}
+                <!-- Page-specific content will go here -->
+                {% endblock %}
+            </main>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="drawer-side shadow-sm">
+            <label for="dashboard-drawer" class="drawer-overlay"></label>
+            <ul class="menu p-4 w-64 min-h-full bg-base-100 text-base-content">
+                <li><img src="{% static 'images/devtrack.png' %}" alt="DevTrack Logo"></li>
+                <li class="menu-title">Navigation</li>
+                <li><a href="{% url 'dashboard:index' %}">🏠 Dashboard</a></li>
+                <li><a href="">📂 Projects</a></li>
+                <li><a href="">👥 Clients</a></li>
+                <li><a href="">💰 Payments</a></li>
+                <li><a href="">💰 Requirements</a></li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>
+
