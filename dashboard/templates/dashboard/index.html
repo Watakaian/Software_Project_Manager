@@ -12,7 +12,7 @@
         {% endfor %}
         <div class="grid grid-cols-2 gap-1 md:gap-3">    
             <a href="" class="btn btn-sm btn-primary mt-2">Add Project</a>
-            <a href="" class="btn btn-sm btn-primary mt-2">View All Projects</a>
+            <a href="{% url 'projects:list' %}" class="btn btn-sm btn-primary mt-2">View All Projects</a>
         </div>
     </div>        
     

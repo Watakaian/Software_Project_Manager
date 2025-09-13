@@ -1,0 +1,22 @@
+<tr id="project-{{ project.id }}">
+    <td colspan="4">
+        <form method="post" 
+              hx-post="{% url 'projects:update_inline' project.id %}" 
+              hx-target="#project-{{ project.id }}" 
+              hx-swap="outerHTML">
+            {% csrf_token %}
+            <div class="flex gap-2">
+                {{ form.client }}
+                {{ form.title }}
+                {{ form.description }}
+                <button type="submit" class="btn btn-xs btn-primary">Save</button>
+                <button type="button" class="btn btn-xs"
+                        hx-get="{% url 'projects:list' %}" 
+                        hx-target="#project-{{ project.id }}" 
+                        hx-swap="outerHTML">
+                    Cancel
+                </button>
+            </div>
+        </form>
+    </td>
+</tr>
