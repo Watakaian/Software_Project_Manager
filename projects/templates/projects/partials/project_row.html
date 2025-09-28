@@ -1,22 +1,15 @@
 <tr id="project-{{ project.id }}">
     <td>{{ project.title }}</td>
+    <td>{{ project.client }}</td>
     <td>{{ project.due_date }}</td>
     <td>{{ project.status }}</td>
     <td>
-        <button 
-            class="btn btn-xs btn-outline"
-            hx-get="{% url 'projects:update_inline' project.id %}" 
-            hx-target="#project-{{ project.id }}" 
-            hx-swap="outerHTML">
+        <a href="{% url 'projects:detail' project.pk %}" class="btn btn-xs btn-primary">
+            View
+        </a>
+        <a href="{% url 'projects:update' project.pk %}" class="btn btn-xs btn-outline">
             Edit
-        </button>
-        <button 
-            class="btn btn-xs btn-error"
-            hx-post="{% url 'projects:delete' project.id %}" 
-            hx-confirm="Are you sure?" 
-            hx-target="#project-{{ project.id }}" 
-            hx-swap="outerHTML">
-            Delete
-        </button>
+        </a>
     </td>
 </tr>
+

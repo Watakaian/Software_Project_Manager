@@ -10,8 +10,8 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.0/dist/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.6/dist/htmx.min.js" integrity="sha384-Akqfrbj/HpNVo8k11SXBb6TlBWmXXlYQrCSqEWmyKJe+hDm3Z/B2WVG4smwBkRVm" crossorigin="anonymous"></script>
 </head>
-<body class="bg-base-200 min-h-screen" x-data="{ sidebarOpen: false }">
 
+<body class="bg-base-200 min-h-screen" x-data="{ sidebarOpen: false }">
     <div class="drawer lg:drawer-open">
         <input id="dashboard-drawer" type="checkbox" class="drawer-toggle" x-model="sidebarOpen" />
 
@@ -86,13 +86,13 @@
         <div class="drawer-side shadow-sm">
             <label for="dashboard-drawer" class="drawer-overlay"></label>
             <ul class="menu p-4 w-64 min-h-full bg-base-100 text-base-content">
-                <li><img src="{% static 'images/devtrack.png' %}" alt="DevTrack Logo"></li>
+                <li><a href="{% url 'dashboard:index' %}"><img src="{% static 'images/devtrack.png' %}" alt="DevTrack Logo"></a></li>
                 <li class="menu-title">Navigation</li>
-                <li><a href="{% url 'dashboard:index' %}">🏠 Dashboard</a></li>
-                <li><a href="{% url 'projects:list' %}">📂 Projects</a></li>
-                <li><a href="">👥 Clients</a></li>
-                <li><a href="">💰 Payments</a></li>
-                <li><a href="">💰 Requirements</a></li>
+                <li><a href="{% url 'dashboard:index' %}">Dashboard</a></li>
+                <li><a href="{% url 'projects:list' %}">Projects</a></li>
+                <li><a href="">Clients</a></li>
+                <li><a href="">Payments</a></li>
+                <li><a href="">Requirements</a></li>
             </ul>
         </div>
     </div>

@@ -1,0 +1,58 @@
+<div x-show="addProjectModal"
+    class="modal modal-open"
+    x-cloak
+>
+    <div class="modal-box">
+        <h3 class="font-bold text-lg mb-4">Add Project</h3>
+        
+        <form method="POST" action="{% url 'projects:create' %}">
+        {% csrf_token %}
+        
+        <div class="form-control mb-2">
+            <label class="label"><span class="label-text">Title</span></label>
+            <input type="text" name="title" class="input input-bordered w-full" required>
+        </div>
+        
+        <div class="form-control mb-2">
+            <label class="label"><span class="label-text">Description</span></label>
+            <textarea name="description" class="textarea textarea-bordered w-full"></textarea>
+        </div>
+        
+        <div class="form-control mb-2">
+            <label class="label"><span class="label-text">Client</span></label>
+            <select name="client" class="select select-bordered w-full" required>
+                {% for client in clients %}
+                    <option value="{{ client.id }}">{{ client.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-control mb-2">
+            <label class="label"><span class="label-text">Start Date</span></label>
+            <input type="date" name="start_date" class="input input-bordered w-full">
+        </div>
+        
+        <div class="form-control mb-2">
+            <label class="label"><span class="label-text">Due Date</span></label>
+            <input type="date" name="due_date" class="input input-bordered w-full">
+        </div>
+        
+        <div class="form-control mb-2">
+            <label class="label"><span class="label-text">Status</span></label>
+            <select name="status" class="select select-bordered w-full" required>
+                {% for value, label in project_status_choices %}
+                    <option value="{{ value }}" {% if value == "draft" %}selected{% endif %}>
+                        {{ label }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="modal-action">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn" @click="addProjectModal = false">Cancel</button>
+        </div>
+    </form>
+
+    </div>
+</div>

@@ -1,30 +1,55 @@
 {% extends "dashboard/base.html" %}
 
 {% block content %}
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">    
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4" x-data = "{ addProjectModal:false }">    
     
+    <!-- Add Project Modal -->
+        {% include 'dashboard/modals/add_project_modal.html' %}
+    <!-- End of add Project Model-->
+
+        <!-- Add Client Model-->
+        <!--End of Add Client Model-->
+    
+    <!-- Actual Dashboard Code-->
     <div class="card bg-base-100 shadow-md p-4">
         <h3 class="text-lg font-semibold">Pending Projects</h3>
+
         {% for project in projects %}
             <p class="">{{ project.title }}</p>
         {% empty%}
             <p>No projects Found</p>
         {% endfor %}
+
         <div class="grid grid-cols-2 gap-1 md:gap-3">    
-            <a href="" class="btn btn-sm btn-primary mt-2">Add Project</a>
+            <button
+                type="button"
+                class="btn btn-sm btn-primary mt-2"
+                @click="addProjectModal = true"
+            >
+                Add Project
+            </button>
+
             <a href="{% url 'projects:list' %}" class="btn btn-sm btn-primary mt-2">View All Projects</a>
         </div>
     </div>        
     
     <div class="card bg-base-100 shadow-md p-4">
         <h3 class="text-lg font-semibold">Recent Clients</h3>
+
         {% for client in clients %}
         <p class="">{{ client.name }}</p>
         {% empty %}
             <p>No Clients Found</p>
         {% endfor %}
-        <div class="grid grid-cols-2 gap-1 md:gap-3">    
-            <a href="" class="btn btn-sm btn-primary mt-2">Add Client</a>
+
+        <div class="grid grid-cols-2 gap-1 md:gap-3">   
+            <button 
+                type="button"
+                class="btn btn-sm btn-primary mt-2"
+                @click=""
+            >
+                Add Client
+            </button>
             <a href="" class="btn btn-sm btn-primary mt-2">View All Clients</a>
         </div>
     </div>
