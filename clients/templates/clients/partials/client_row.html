@@ -1,0 +1,14 @@
+<tr id="client-{{client.id}}">
+    <td>{{ client.name }}</td>
+    <td>{{ client.company }}</td>
+    <td>{{ client.email }}</td>
+    <td>{{ client.phone_no }}</td>
+    <td>
+        <a href="{% url 'clients:list' %}" class="btn btn-xs btn-primary">
+            View
+        </a>
+        <a href="{% url 'clients:list' %}" class="btn btn-xs btn-outline">
+            Edit
+        </a>
+    </td>
+</tr>

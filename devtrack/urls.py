@@ -29,6 +29,6 @@ urlpatterns = [
     path("", redirect_dashboard, name="home"), #
     path("dashboard/", include("dashboard.urls")), # logged in user
     path("projects/", include("projects.urls")),
-    # path("clients/", include("clients.urls")),
+    path("clients/", include("clients.urls")),
     # path("payments/", include("payments.urls")),
 ]
