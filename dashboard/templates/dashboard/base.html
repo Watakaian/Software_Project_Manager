@@ -9,6 +9,14 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.0/dist/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.6/dist/htmx.min.js" integrity="sha384-Akqfrbj/HpNVo8k11SXBb6TlBWmXXlYQrCSqEWmyKJe+hDm3Z/B2WVG4smwBkRVm" crossorigin="anonymous"></script>
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
+    
+    {% block extra_head_tags %}
+        
+    {% endblock extra_head_tags %}
+        
 </head>
 
 <body class="bg-base-200 min-h-screen" x-data="{ sidebarOpen: false }">

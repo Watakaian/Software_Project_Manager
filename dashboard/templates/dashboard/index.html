@@ -1,14 +1,23 @@
 {% extends "dashboard/base.html" %}
 
+
+{% block extends %}
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
+{% endblock extends %}
+    
+
 {% block content %}
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4" x-data = "{ addProjectModal:false }">    
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4" x-data = "{ addProjectModal:false, addClientModal:false }">    
     
     <!-- Add Project Modal -->
         {% include 'dashboard/modals/add_project_modal.html' %}
     <!-- End of add Project Model-->
 
-        <!-- Add Client Model-->
-        <!--End of Add Client Model-->
+    <!-- Add Client Model-->
+        {% include 'dashboard/modals/add_client_modal.html' %}
+    <!--End of Add Client Model-->
     
     <!-- Actual Dashboard Code-->
     <div class="card bg-base-100 shadow-md p-4">
@@ -46,11 +55,11 @@
             <button 
                 type="button"
                 class="btn btn-sm btn-primary mt-2"
-                @click=""
+                @click="addClientModal=true"
             >
                 Add Client
             </button>
-            <a href="" class="btn btn-sm btn-primary mt-2">View All Clients</a>
+            <a href="{% url 'clients:list' %}" class="btn btn-sm btn-primary mt-2">View All Clients</a>
         </div>
     </div>
         

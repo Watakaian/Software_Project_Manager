@@ -1,5 +1,5 @@
 from django import forms
-from .models import Project, Requirement
+from projects.models import Project, Requirement
 
 class ProjectForm(forms.ModelForm):
     class Meta:

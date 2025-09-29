@@ -1,0 +1,39 @@
+<div 
+    x-show="addClientModal"
+    class="modal modal-open"
+    x-cloak
+>
+    <div class="modal-box">
+        <h3 class="font-bold text-lg mb-4">Add Client</h3>
+
+        <form method="POST" action="{% url 'clients:create' %}">
+            {% csrf_token %}
+
+            <div class="form-control mb-2">
+                <label class="label"><span class="label-text">Client Name</span></label>
+                <input type="text" name="name" class="input input-bordered w-full" required>
+            </div>
+
+            <div class="form-control mb-2">
+                <label class="label"><span class="label-text">Client Email</span></label>
+                <input type="email" name="email" class="input input-bordered w-full" required>
+            </div>
+
+            <div class="form-control mb-2">
+                <label class="label"><span class="label-text">Phone Number</span></label>
+                <input type="text" name="phone_no" class="input input-bordered w-full" required>
+            </div>
+
+            <div class="form-control mb-2">
+                <label class="label"><span class="label-text">Company</span></label>
+                <input type="text" name="company" class="input input-bordered w-full" required>
+            </div>
+
+            <div class="modal-action">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn" @click="addClientModal = false">Cancel</button>
+            </div>
+        </form>
+
+    </div>
+</div>
