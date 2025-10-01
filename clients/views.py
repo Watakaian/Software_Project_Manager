@@ -38,4 +38,12 @@ class ClientUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse_lazy("clients:detail", kwargs={"pk": self.object.pk})
+    
+
+class ClientDeleteView(DeleteView):
+    model = Client
+    template_name = "clients/client_confirm_delete.html"
+    success_url = reverse_lazy("clients:list")  # after delete, go back to project list
+    context_object_name = "client"
+
 
