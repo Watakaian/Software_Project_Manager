@@ -4,10 +4,10 @@
     <td>{{ client.email }}</td>
     <td>{{ client.phone_no }}</td>
     <td>
-        <a href="{% url 'clients:list' %}" class="btn btn-xs btn-primary">
+        <a href="{% url 'clients:detail' client.pk %}" class="btn btn-xs btn-primary">
             View
         </a>
-        <a href="{% url 'clients:list' %}" class="btn btn-xs btn-outline">
+        <a href="{% url 'clients:edit' client.pk %}" class="btn btn-xs btn-outline">
             Edit
         </a>
     </td>

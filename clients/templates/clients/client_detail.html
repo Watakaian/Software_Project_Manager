@@ -1,0 +1,47 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}
+    {{ client.name }}
+{% endblock title %}
+    
+
+
+{% block content %}
+    <div class="max-w-3xl mx-auto" x-data="{ deleteClientModal: false }">
+        <div class="card bg-base-100 shadow-md p-6">
+            <h2 class="text-2xl font-bold mb-4">{{ client.name }}</h2>
+
+            <p class="mb-2"><span class="font-semibold">Client:</span> {{ client.name }}</p>
+            <p class="mb-2"><span class="font-semibold">Email:</span> {{ client.email }}</p>
+            <p class="mb-2"><span class="font-semibold">Phone Number:</span> {{ client.phone_no }}</p>
+            <p class="mb-2"><span class="font-semibold">Company:</span> {{ client.company }}</p>
+            <p class="mb-2"><span class="font-semibold">Created At:</span> {{ client.created_at }}</p>
+
+            <div class="mt-6 flex gap-2">
+            <a href="{% url 'clients:list' %}" class="btn btn-sm">Back to Clients</a>
+            <a href="{% url 'clients:edit' client.pk %}" class="btn btn-sm btn-primary">Edit</a>
+            <!-- Delete Button -->
+            <button @click="deleteClientModal = true" class="btn btn-sm btn-error">Delete</button>
+
+            <!-- Delete Client Modal -->
+            <div x-show="deleteClientModal" class="modal modal-open" x-cloak>
+                <div class="modal-box">
+                <h3 class="font-bold text-lg">Are you sure?</h3>
+                <p class="py-4">Do you really want to delete <strong>{{ client.name }}</strong>? This action cannot be undone.</p>
+
+                <form method="POST" action="{% url 'clients:detail' client.pk %}">
+                    {% csrf_token %}
+                    <div class="modal-action">
+                    <button type="submit" class="btn btn-error">Yes, Delete</button>
+                    <button type="button" class="btn" @click="deleteProjectModal = false">Cancel</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+
+
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+    

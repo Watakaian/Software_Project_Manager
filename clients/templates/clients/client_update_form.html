@@ -1,0 +1,53 @@
+{% extends "dashboard/base.html" %}
+
+
+{% block title %}
+    Update {{ client.title }}
+{% endblock title %}
+    
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+  <div class="card bg-base-100 shadow-md p-6">
+    <h2 class="text-xl font-bold mb-4">Edit Client Details</h2>
+
+    <form method="POST">
+      {% csrf_token %}
+
+      <!-- Title -->
+      <div class="form-control mb-2">
+        <label class="label"><span class="label-text">Title</span></label>
+        <input type="text" name="name" class="input input-bordered w-full"
+               value="{{ client.name }}" required>
+      </div>
+
+      <!-- Email-->
+      <div class="form-control mb-2">
+        <label class="label"><span class="label-text">Email</span></label>
+        <input type="text" name="email" class="input input-bordered w-full"
+               value="{{ client.email }}" required>
+      </div>
+
+      <!-- Phone Number-->
+      <div class="form-control mb-2">
+        <label class="label"><span class="label-text">Phone Number</span></label>
+        <input type="text" name="phone_no" class="input input-bordered w-full"
+               value="{{ client.phone_no }}" required>
+      </div>
+
+      <!-- Phone Number-->
+      <div class="form-control mb-2">
+        <label class="label"><span class="label-text">Customer Company</span></label>
+        <input type="text" name="company" class="input input-bordered w-full"
+               value="{{ client.company }}" required>
+      </div>
+
+      <!-- Actions -->
+      <div class="mt-4 flex gap-2">
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <a href="{% url 'clients:detail' client.pk %}" class="btn">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
