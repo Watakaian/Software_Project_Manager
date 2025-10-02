@@ -74,9 +74,21 @@ class RequirementDetailView(DetailView):
 
 class RequirementUpdateView(UpdateView):
     model = Requirement
-    fields = ["","","","",""]
+    fields = ["project","title","description","requirement_type","status"]
     template_name = "projects/requirement_update_form.html"
     context_object_name = "requirement"
+
+    def get_success_url(self):
+        return reverse_lazy("projects:requirement_detail",kwargs={"pk":self.object.pk})
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["projects"] = Project.objects.all()
+        return context
+
+
+    def __str__(self):
+        return f"{self.title} ({self.get_requirement_type_display()})"
 
 
 class RequirementDeleteView(DeleteView):

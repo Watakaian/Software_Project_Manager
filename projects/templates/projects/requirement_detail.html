@@ -22,7 +22,7 @@
 
     <div class="mt-6 flex gap-2">
       <a href="{% url 'projects:requirement_list' %}" class="btn btn-sm">Back to Requirements</a>
-      <a href="{% url 'projects:list' %}" class="btn btn-sm btn-primary">Edit</a>
+      <a href="{% url 'projects:edit_requirement' requirement.pk %}" class="btn btn-sm btn-primary">Edit</a>
       <!-- Delete Button -->
       <button @click="deleteRequirementModal = true" class="btn btn-sm btn-error">Delete</button>
 
@@ -41,7 +41,6 @@
           </form>
         </div>
       </div>
-
 
     </div>
   </div>

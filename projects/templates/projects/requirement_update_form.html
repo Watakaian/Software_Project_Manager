@@ -1,0 +1,74 @@
+{% extends "dashboard/base.html" %}
+
+
+{% block title %}
+    Update {{requirement.title}}
+{% endblock title %}
+    
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+  <div class="card bg-base-100 shadow-md p-6">
+    <h2 class="text-xl font-bold mb-4">Edit Requirement</h2>
+
+    <form method="POST">
+      {% csrf_token %}
+
+        <!-- Project -->
+      <div class="form-control mb-2">
+        <label class="label"><span class="label-text">Project</span></label>
+        <select name="project" class="select select-bordered w-full" required>
+          {% for project in projects %}
+            <option value="{{ project.id }}" {% if project.id == requirement.project.id %}selected{% endif %}>
+              {{ project.title }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Title -->
+      <div class="form-control mb-2">
+        <label class="label"><span class="label-text">Title</span></label>
+        <input type="text" name="title" class="input input-bordered w-full"
+               value="{{ requirement.title }}" required>
+      </div>
+
+      <!-- Description -->
+      <div class="form-control mb-2">
+        <label class="label"><span class="label-text">Description</span></label>
+        <textarea name="description" class="textarea textarea-bordered w-full">{{ requirement.description }}</textarea>
+      </div>
+
+      <!-- Requirement type -->
+      <div class="form-control mb-2">
+        <label class="label"><span class="label-text">Requirement Type</span></label>
+        <select name="requirement_type" class="select select-bordered w-full" required>
+          {% for value, label in requirement.TYPE_CHOICES %}
+            <option value="{{ value }}" {% if requirement.requirement_type == value %}selected{% endif %}>
+              {{ label }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Status -->
+      <div class="form-control mb-2">
+        <label class="label"><span class="label-text">Status</span></label>
+        <select name="status" class="select select-bordered w-full" required>
+          {% for value, label in requirement.STATUS_CHOICES %}
+            <option value="{{ value }}" {% if requirement.status == value %}selected{% endif %}>
+              {{ label }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Actions -->
+      <div class="mt-4 flex gap-2">
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <a href="{% url 'projects:requirement_detail' requirement.pk %}" class="btn">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -15,5 +15,6 @@ urlpatterns = [
     path("requirement_list/", views.requirement_list, name="requirement_list"),
     path("requirement/create/", views.create_requirement, name="create_requirement"),
     path("requirement/<int:pk>/",views.RequirementDetailView.as_view(), name="requirement_detail"),
-    path("requirement/<int:pk>/delete/", views.RequirementDeleteView.as_view(), name="delete_requirement")
+    path("requirement/<int:pk>/delete/", views.RequirementDeleteView.as_view(), name="delete_requirement"),
+    path("requirement/<int:pk>/edit/", views.RequirementUpdateView.as_view(), name="edit_requirement"),
 ]
