@@ -1,0 +1,14 @@
+<tr id="requirement-{{ requirement.id }}">
+    <td>{{ requirement.project }}</td>
+    <td>{{ requirement.title }}</td>
+    <td>{{ requirement.requirement_type }}</td>
+    <td>{{ requirement.status }}</td>
+    <td>
+        <a href="{% url 'projects:list'  %}" class="btn btn-xs btn-primary">
+            View
+        </a>
+        <a href="{% url 'projects:list'  %}" class="btn btn-xs btn-outline">
+            Edit
+        </a>
+    </td>
+</tr>

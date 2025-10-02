@@ -3,9 +3,9 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.generic import DetailView, DeleteView, UpdateView
 from django.urls import reverse_lazy
 
-from .models import Project
+from projects.models import Project, Requirement
 from clients.models import Client
-from .forms import ProjectForm
+from projects.forms import ProjectForm, RequirementForm
 
 
 def project_list(request):
@@ -48,3 +48,20 @@ class ProjectUpdateView(UpdateView):
         context = super().get_context_data(**kwargs)
         context["clients"] = Client.objects.all()  # pass clients for dropdown
         return context
+
+
+def requirement_list(request):
+    requirements = Requirement.objects.filter(status="pending")
+    return render(request, "projects/requirement_list.html", {"requirements":requirements})
+
+@csrf_protect
+def create_requirement(request):
+    if request.method == "POST":
+        form = RequirementForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("dashboard:index")
+        else:
+            print("FORM ERRORS:", form.errors)  # debug
+            return redirect("dashboard:index")
+    return redirect("dashboard:index")

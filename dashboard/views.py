@@ -9,6 +9,8 @@ from payments.models import Payment
 def index(request):
     projects = Project.objects.all()[:5]
     project_status_choices = Project.STATUS_CHOICES  # expose choices
+    requirement_status_choices = Requirement.STATUS_CHOICES  # expose choices
+    requirement_type_choices = Requirement.TYPE_CHOICES  # expose choices
     clients = Client.objects.all()[:5]
     unpaid_invoices = Payment.objects.filter(status="pending")[:5]
     pending_requirements = Requirement.objects.filter(status="pending") [:5]
@@ -19,5 +21,7 @@ def index(request):
         "unpaid_invoices": unpaid_invoices,
         "pending_requirements": pending_requirements,
         "project_status_choices": project_status_choices, # To use in add project modal
+        "requirement_type_choices": requirement_type_choices,
+        "requirement_status_choices": requirement_status_choices,
     }
     return render(request, "dashboard/index.html", context)

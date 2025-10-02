@@ -9,16 +9,24 @@
     
 
 {% block content %}
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4" x-data = "{ addProjectModal:false, addClientModal:false }">    
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4" x-data = "{ addProjectModal:false, addClientModal:false, addRequirementModal:false }">    
     
     <!-- Add Project Modal -->
         {% include 'dashboard/modals/add_project_modal.html' %}
     <!-- End of add Project Model-->
 
-    <!-- Add Client Model-->
-        {% include 'dashboard/modals/add_client_modal.html' %}
-    <!--End of Add Client Model-->
+    <!-- Add Payment Modal-->
+        {% include 'dashboard/modals/add_payment_modal.html' %}
+    <!--End of Add Payment Modal-->
     
+    <!-- Add Client Modal-->
+        {% include 'dashboard/modals/add_client_modal.html' %}
+    <!--End of Add Client Modal-->
+
+    <!-- Add Requirement Modal-->
+        {% include 'dashboard/modals/add_requirement_modal.html' %}
+    <!--End of Add Requirement Modal-->
+
     <!-- Actual Dashboard Code-->
     <div class="card bg-base-100 shadow-md p-4">
         <h3 class="text-lg font-semibold">Pending Projects</h3>
@@ -87,8 +95,14 @@
             <p>No Pending Requirements Found.</p>
         {% endfor %}
         <div class="grid grid-cols-2 gap-1 md:gap-3 card-actions">    
-            <a href="" class="btn btn-sm btn-primary mt-2">Add Requirement</a>
-            <a href="" class="btn btn-sm btn-primary mt-2">View All Requirements</a>
+            <button 
+                type="button"
+                class="btn btn-sm btn-primary mt-2"
+                @click="addRequirementModal=true"
+            >
+                Add Requirement
+            </button>
+            <a href="{% url 'projects:requirement_list' %}" class="btn btn-sm btn-primary mt-2">View All Requirements</a>
         </div>
     </div>
 

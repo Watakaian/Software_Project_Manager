@@ -24,7 +24,7 @@ Authentication: Django's built-in user authentication system
 Deployment: Can be deployed on any platform (Heroku, AWS, DigitalOcean, enabled Cpanel accounts)
 
 ### Contacts
-Email : [ianwataka@gmail.com](ianwataka@gmail.com)
+Email : ianwataka@gmail.com
 Github : [@Watakaian](https://github.com/Watakaian/)
 
 ### Acknowledgements

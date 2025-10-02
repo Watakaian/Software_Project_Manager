@@ -1,0 +1,59 @@
+<div x-show="addRequirementModal"
+    class="modal modal-open"
+    x-cloak
+>
+    <div class="modal-box">
+        <h3 class="font-bold text-lg mb-4">Add Requirement</h3>
+        
+        <form method="POST" action="{% url 'projects:create_requirement' %}">
+        {% csrf_token %}
+
+        <div class="form-control mb-2">
+            <label class="label"><span class="label-text">Project</span></label>
+            <select name="project" class="select select-bordered w-full" required>
+                {% for project in projects %}
+                    <option value="{{ project.id }}">{{ project.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="form-control mb-2">
+            <label class="label"><span class="label-text">Title</span></label>
+            <input type="text" name="title" class="input input-bordered w-full" required>
+        </div>
+        
+        <div class="form-control mb-2">
+            <label class="label"><span class="label-text">Description</span></label>
+            <textarea name="description" class="textarea textarea-bordered w-full"></textarea>
+        </div>
+
+        <div class="form-control mb-2">
+            <label class="label"><span class="label-text">Requirement Type</span></label>
+            <select name="requirement_type" class="select select-bordered w-full" required>
+                {% for value, label in requirement_type_choices %}
+                    <option value="{{ value }}" {% if value == "functional" %}selected{% endif %}>
+                        {{ label }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="form-control mb-2">
+            <label class="label"><span class="label-text">Status</span></label>
+            <select name="status" class="select select-bordered w-full" required>
+                {% for value, label in requirement_status_choices %}
+                    <option value="{{ value }}" {% if value == "pending" %}selected{% endif %}>
+                        {{ label }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="modal-action">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" class="btn" @click="addRequirementModal = false">Cancel</button>
+        </div>
+    </form>
+
+    </div>
+</div>
