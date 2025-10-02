@@ -1,0 +1,49 @@
+<div 
+    x-show="addPaymentModal"
+    class="modal modal-open"
+    x-cloak
+>
+    <div class="modal-box">
+        <h3 class="font-bold text-lg mb-4">Add Payment</h3>
+
+        <form method="POST" action="{% url 'payments:create' %}">
+            {% csrf_token %}
+
+            <div class="form-control mb-2">
+                <label class="label"><span class="label-text">Project</span></label>
+                <select name="project" class="select select-bordered w-full" required>
+                    {% for project in projects %}
+                        <option value="{{ project.id }}">{{ project.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-control mb-2">
+                <label class="label"><span class="label-text">Amount (KSH)</span></label>
+                <input type="number" name="amount" class="input input-bordered w-full" required>
+            </div>
+
+            <div class="form-control mb-2">
+                <label class="label"><span class="label-text">Due Date</span></label>
+                <input type="date" name="due_date" class="input input-bordered w-full">
+            </div>
+
+            <div class="form-control mb-2">
+                <label class="label"><span class="label-text">Status</span></label>
+                <select name="status" class="select select-bordered w-full" required>
+                    {% for value, label in payment_status_choices %}
+                        <option value="{{ value }}" {% if value == "pending" %}selected{% endif %}>
+                            {{ label }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="modal-action">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn" @click="addPaymentModal = false">Cancel</button>
+            </div>
+        </form>
+
+    </div>
+</div>

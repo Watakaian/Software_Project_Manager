@@ -30,5 +30,5 @@ urlpatterns = [
     path("dashboard/", include("dashboard.urls")), # logged in user
     path("projects/", include("projects.urls")),
     path("clients/", include("clients.urls")),
-    # path("payments/", include("payments.urls")),
+    path("payments/", include("payments.urls")),
 ]

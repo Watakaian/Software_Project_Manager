@@ -9,7 +9,7 @@
     
 
 {% block content %}
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4" x-data = "{ addProjectModal:false, addClientModal:false, addRequirementModal:false }">    
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4" x-data = "{ addProjectModal:false, addClientModal:false, addRequirementModal:false, addPaymentModal:false }">    
     
     <!-- Add Project Modal -->
         {% include 'dashboard/modals/add_project_modal.html' %}
@@ -81,8 +81,14 @@
         {% endfor %}
 
         <div class="grid grid-cols-2 gap-1 md:gap-3 card-actions">    
-            <a href="" class="btn btn-sm btn-primary mt-2">Add Payment</a>
-            <a href="" class="btn btn-sm btn-primary mt-2">View All Payments</a>
+            <button 
+                type="button"
+                class="btn btn-sm btn-primary mt-2"
+                @click="addPaymentModal=true"
+            >
+                Add Payment
+            </button>
+            <a href="{% url 'payments:list' %}" class="btn btn-sm btn-primary mt-2">View All Payments</a>
         </div>
     </div>
         

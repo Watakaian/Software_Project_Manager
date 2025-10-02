@@ -1,0 +1,15 @@
+<tr id="payment-{{payment.id}}">
+    <td>{{ payment.project.title }}</td>
+    <td>{{ payment.amount }}</td>
+    <td>{{ payment.due_date }}</td>
+    <td>{{ payment.status }}</td>
+
+    <td>
+        <a href="{% url 'payments:list' %}" class="btn btn-xs btn-primary">
+            View
+        </a>
+        <a href="{% url 'payments:list' %}" class="btn btn-xs btn-outline">
+            Edit
+        </a>
+    </td>
+</tr>
