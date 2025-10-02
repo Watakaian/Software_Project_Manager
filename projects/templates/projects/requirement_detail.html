@@ -1,0 +1,50 @@
+{% extends "dashboard/base.html" %}
+
+
+{% block title %}
+  {{requirement.title}}
+{% endblock title %}
+  
+
+{% block content %}
+<div class="max-w-3xl mx-auto" x-data="{ deleteRequirementModal: false }">
+  <div class="card bg-base-100 shadow-md p-6">
+    <h2 class="text-2xl font-bold mb-4">{{ requirement.title }}</h2>
+
+    <p class="mb-2"><span class="font-semibold">Project:</span> {{ requirement.project.title }}</p>
+    <p class="mb-2"><span class="font-semibold">Requirement Title:</span> {{ requirement.title }}</p>
+    <p class="mb-2"><span class="font-semibold">Description:</span> {{ requirement.description|default:"No description" }}</p>
+    <p class="mb-2"><span class="font-semibold">Requirement Type:</span> {{ requirement.requirement_type }}</p>
+    <p class="mb-2"><span class="font-semibold">Status:</span> 
+      <span class="badge badge-primary">{{ requirement.get_status_display }}</span>
+    </p>
+    <p class="mb-2"><span class="font-semibold">Created At:</span> {{ requirement.created_at }}</p>
+
+    <div class="mt-6 flex gap-2">
+      <a href="{% url 'projects:requirement_list' %}" class="btn btn-sm">Back to Requirements</a>
+      <a href="{% url 'projects:list' %}" class="btn btn-sm btn-primary">Edit</a>
+      <!-- Delete Button -->
+      <button @click="deleteRequirementModal = true" class="btn btn-sm btn-error">Delete</button>
+
+      <!-- Delete Project Modal -->
+      <div x-show="deleteRequirementModal" class="modal modal-open" x-cloak>
+        <div class="modal-box">
+          <h3 class="font-bold text-lg">Are you sure?</h3>
+          <p class="py-4">Do you really want to delete <strong>{{ requirement.title }}</strong>? This action cannot be undone.</p>
+
+          <form method="POST" action="{% url 'projects:delete_requirement' requirement.pk %}">
+            {% csrf_token %}
+            <div class="modal-action">
+              <button type="submit" class="btn btn-error">Yes, Delete</button>
+              <button type="button" class="btn" @click="deleteRequirementModal = false">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+{% endblock %}
+

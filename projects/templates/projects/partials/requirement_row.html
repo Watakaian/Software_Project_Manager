@@ -4,7 +4,7 @@
     <td>{{ requirement.requirement_type }}</td>
     <td>{{ requirement.status }}</td>
     <td>
-        <a href="{% url 'projects:list'  %}" class="btn btn-xs btn-primary">
+        <a href="{% url 'projects:requirement_detail' requirement.pk %}" class="btn btn-xs btn-primary">
             View
         </a>
         <a href="{% url 'projects:list'  %}" class="btn btn-xs btn-outline">

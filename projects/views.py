@@ -65,3 +65,22 @@ def create_requirement(request):
             print("FORM ERRORS:", form.errors)  # debug
             return redirect("dashboard:index")
     return redirect("dashboard:index")
+
+class RequirementDetailView(DetailView):
+    model = Requirement
+    template_name = "projects/requirement_detail.html"
+    context_object_name = "requirement"
+
+
+class RequirementUpdateView(UpdateView):
+    model = Requirement
+    fields = ["","","","",""]
+    template_name = "projects/requirement_update_form.html"
+    context_object_name = "requirement"
+
+
+class RequirementDeleteView(DeleteView):
+    model = Requirement
+    template_name = "projects/requirement_confirm_delete"
+    success_url = reverse_lazy("projects:requirement_list")  # after delete, go back to requirement list
+    context_object_name = "requirement"
