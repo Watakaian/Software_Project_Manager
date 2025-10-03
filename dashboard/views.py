@@ -1,8 +1,12 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.template.loader import render_to_string
+from django.http import HttpResponse
+from django.db.models import Q
 from projects.models import Project, Requirement
 from clients.models import Client
 from payments.models import Payment
+
 
 # Create your views here.
 @login_required
@@ -27,3 +31,47 @@ def index(request):
         "payment_status_choices": payment_status_choices,
     }
     return render(request, "dashboard/index.html", context)
+
+def search(request):
+    query = request.GET.get("q", "").strip()
+    if not query:
+        return HttpResponse("")  # Return empty response if no query
+
+    # Search across all relevant models
+    payments = Payment.objects.filter(
+        Q(project__title__icontains=query) |
+        Q(amount__icontains=query) |
+        Q(status__icontains=query)
+    ).values("id", "project__title", "amount", "status")
+
+    clients = Client.objects.filter(
+        Q(name__icontains=query) |
+        Q(email__icontains=query) |
+        Q(phone_no__icontains=query) |
+        Q(company__icontains=query)
+    ).values("id", "name", "email", "phone_no", "company")
+
+    projects = Project.objects.filter(
+        Q(title__icontains=query) |
+        Q(description__icontains=query) |
+        Q(status__icontains=query)
+    ).values("id", "title", "description", "status")
+
+    requirements = Requirement.objects.filter(
+        Q(title__icontains=query) |
+        Q(description__icontains=query) |
+        Q(requirement_type__icontains=query) |
+        Q(status__icontains=query)
+    ).values("id", "title", "description", "requirement_type", "status")
+
+    # Combine results into a single dictionary
+    results = {
+        "payments": list(payments),
+        "clients": list(clients),
+        "projects": list(projects),
+        "requirements": list(requirements),
+    }
+
+    # Render the partial template for HTMX
+    html = render_to_string("dashboard/search_results.html", {"results": results})
+    return HttpResponse(html)
